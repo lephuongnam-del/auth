@@ -46,5 +46,12 @@ module.exports = {
     secret :async (req,res,next) =>{
         console.log('I manage to get here')
         res.json({secret: 'resource'});
+    },
+    google: async(req,res,next) =>{
+        console.log('login with google successful');
+    },
+    facebook: async(req,res,next) =>{
+        console.log('login with facebook successful');
     }
+
 }

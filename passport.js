@@ -4,8 +4,8 @@ const {ExtractJwt} = require('passport-jwt');
 const{JWT_SECRET} = require('./configuration');
 const User = require('./models/users');
 const LocalStrategy = require ('passport-local').Strategy;
-
-
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 // json web token strategy
 passport.use(new jwtStrategy({
     jwtFromRequest: ExtractJwt.fromHeader('authorization'),
@@ -57,3 +57,32 @@ passport.use(new LocalStrategy({usernameField: "email"},
 
 
     }));
+
+
+    // google
+    passport.use(new GoogleStrategy({
+        clientID: '718126783534-44g6l7r2srj527dil2e6dduavoiptoq7.apps.googleusercontent.com',
+        clientSecret: 'wEr7watpi0Vr3VcTRWsp1Mxq',
+        callbackURL: "http://localhost:3000/users/google/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+           User.findOrCreate({ googleId: profile.id }, function (err, user) {
+             return done(err, user);
+           });
+      }
+    ));
+
+
+    //face
+    passport.use(new FacebookStrategy({
+        clientID: '722785471672851',
+        clientSecret: 'cbb7e9254d145e4abb23f33aa916b18c',
+        callbackURL: "http://www.example.com/auth/facebook/callback"
+      },
+      function(accessToken, refreshToken, profile, done) {
+        User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+          if (err) { return done(err); }
+          done(null, user);
+        });
+      }
+    ));

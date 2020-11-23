@@ -15,4 +15,9 @@ router.route('/signin')
 router.route('/secret')
 .get(passport.authenticate('jwt',{session:false}) ,UserController.secret);
 
+router.route('/google')
+.get( passport.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }),UserController.google );
+
+router.route('/facebook')
+.get( passport.authenticate('facebook'),UserController.facebook);
 module.exports = router;
