@@ -52,6 +52,10 @@ module.exports = {
     },
     facebook: async(req,res,next) =>{
         console.log('login with facebook successful');
+    },
+    register: async(req,res,next) =>{
+        console.log('register call');
     }
+   
 
 }

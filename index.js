@@ -4,6 +4,8 @@ var port = process.env.port || 3000;
 var bodypaser= require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+const path = require('path');
+
 
 mongoose.Promise = global.Promise;
 var urldb ='mongodb+srv://youngboy:test123@cluster0.tiz60.mongodb.net/authen2?retryWrites=true&w=majority'
@@ -16,6 +18,7 @@ app.use(bodypaser.urlencoded({extended: true }));
 app.use(bodypaser.json());
 app.use(morgan('dev'));
 
+app.set("views", path.join(__dirname, "views"));
 
 app.use('/users', require('./routers/users'));
 

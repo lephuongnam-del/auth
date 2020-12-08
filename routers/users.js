@@ -9,6 +9,8 @@ const passportConf = require('../passport');
 router.route('/signup')
 .post(validateBody(schemas.authSchema), UserController.signUp);
 
+
+
 router.route('/signin')
 .post(validateBody(schemas.authSchema),passport.authenticate('jwt',{session:false}), UserController.signIn);
 
